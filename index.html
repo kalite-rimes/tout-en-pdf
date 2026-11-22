@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tout en PDF</title>
+  <meta name="description" content="Transformez gratuitement vos images, documents Word, Excel, PowerPoint, textes et pages web en PDF. Vos fichiers restent sur votre appareil.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23d6452f'/%3E%3Ctext x='16' y='21' font-family='Arial' font-weight='bold' font-size='11' fill='white' text-anchor='middle'%3EPDF%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-inner">
+      <a class="logo" href="./"><span class="logo-mark">PDF</span> Tout en PDF</a>
+      <span class="badge">🔒 100 % dans votre navigateur</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>Transformez n'importe quel fichier en PDF</h1>
+      <p>Images, Word, Excel, PowerPoint, textes, pages web, PDF… Ajoutez un ou plusieurs fichiers, mettez-les dans l'ordre, et téléchargez votre PDF. Gratuit, sans inscription.</p>
+    </section>
+
+    <label id="dropzone" class="dropzone" tabindex="0">
+      <input id="fileInput" type="file" multiple hidden>
+      <div class="dz-icon" aria-hidden="true">⬆</div>
+      <div class="dz-title">Glissez vos fichiers ici</div>
+      <div class="dz-sub">ou <span class="link">cliquez pour choisir</span> sur votre appareil</div>
+      <div class="dz-formats">JPG · PNG · WEBP · GIF · SVG · PDF · DOCX · XLSX · XLS · CSV · PPTX · TXT · HTML · MD · JSON…</div>
+    </label>
+
+    <section id="workspace" class="workspace" hidden>
+      <div class="list-head">
+        <h2>Vos fichiers <span id="count" class="muted"></span></h2>
+        <button id="clearBtn" class="btn ghost small" type="button">Tout retirer</button>
+      </div>
+      <p class="muted hint">Faites glisser les fichiers pour changer l'ordre des pages.</p>
+      <ul id="fileList" class="file-list"></ul>
+
+      <div class="options">
+        <div class="opt">
+          <span class="opt-label">Résultat</span>
+          <div class="seg" role="radiogroup">
+            <label><input type="radio" name="mode" value="merge" checked><span>Un seul PDF</span></label>
+            <label><input type="radio" name="mode" value="separate"><span>Un PDF par fichier</span></label>
+          </div>
+        </div>
+        <div class="opt">
+          <span class="opt-label">Format de page</span>
+          <div class="seg" role="radiogroup">
+            <label><input type="radio" name="size" value="A4" checked><span>A4</span></label>
+            <label><input type="radio" name="size" value="Letter"><span>Lettre US</span></label>
+            <label><input type="radio" name="size" value="fit"><span>Taille de l'image</span></label>
+          </div>
+        </div>
+        <div class="opt">
+          <label class="opt-label" for="fileName">Nom du fichier</label>
+          <div class="name-field"><input id="fileName" type="text" value="mon-document" spellcheck="false"><span>.pdf</span></div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="convertBtn" class="btn primary" type="button">Créer le PDF</button>
+        <div id="progress" class="progress" hidden><div class="bar"><div id="bar"></div></div><span id="progressText"></span></div>
+      </div>
+      <div id="result" class="result" hidden></div>
+    </section>
+
+    <section class="features">
+      <div class="feat"><div class="feat-ic">🔒</div><h3>Confidentiel</h3><p>La conversion se fait sur votre appareil. Vos fichiers ne sont jamais envoyés sur Internet.</p></div>
+      <div class="feat"><div class="feat-ic">📚</div><h3>Plusieurs fichiers</h3><p>Combinez photos, documents et PDF existants dans un seul fichier, dans l'ordre de votre choix.</p></div>
+      <div class="feat"><div class="feat-ic">⚡</div><h3>Simple et gratuit</h3><p>Pas de compte, pas de filigrane, pas de limite de nombre de conversions.</p></div>
+    </section>
+
+    <section class="faq">
+      <h2>Questions fréquentes</h2>
+      <details><summary>Quels fichiers sont acceptés ?</summary><p>Les images (JPG, PNG, WEBP, GIF, BMP, SVG), les PDF, Word (.docx), Excel (.xlsx, .xls, .ods, .csv), PowerPoint (.pptx), et tous les fichiers texte (.txt, .md, .html, .json, .xml, code…). Les anciens formats .doc et .ppt ne sont pas encore pris en charge : enregistrez-les d'abord en .docx ou .pptx.</p></details>
+      <details><summary>Le rendu est-il identique à l'original ?</summary><p>Pour les images et les PDF, oui. Pour Word, Excel et PowerPoint, le contenu (texte, tableaux, images) est repris fidèlement, mais la mise en page peut différer légèrement de celle d'Office.</p></details>
+      <details><summary>Y a-t-il une limite de taille ?</summary><p>Il n'y a pas de limite fixe, mais au-delà d'environ 200 Mo au total, la conversion peut être lente selon la puissance de votre appareil.</p></details>
+    </section>
+  </main>
+
+  <footer class="foot"><div class="wrap">Tout en PDF · Vos fichiers restent sur votre appareil.</div></footer>
+
+  <div id="renderHost" aria-hidden="true"></div>
+
+  <script src="vendor/pdf-lib.min.js"></script>
+  <script src="vendor/html2canvas.min.js"></script>
+  <script src="vendor/mammoth.browser.min.js"></script>
+  <script src="vendor/xlsx.full.min.js"></script>
+  <script src="vendor/jszip.min.js"></script>
+  <script src="vendor/marked.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
